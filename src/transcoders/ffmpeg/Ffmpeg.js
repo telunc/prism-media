@@ -1,3 +1,4 @@
+const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
 const ChildProcess = require('child_process');
 const FfmpegProcess = require('./FfmpegProcess');
 
@@ -40,7 +41,7 @@ class FfmpegTranscoder {
     try {
       return require('ffmpeg-binaries').ffmpegPath();
     } catch (err) {
-      for (const command of ['ffmpeg', 'avconv', './ffmpeg', './avconv']) {
+      for (const command of ['ffmpeg', 'avconv', './ffmpeg', './avconv', ffmpegPath]) {
         if (!ChildProcess.spawnSync(command, ['-h']).error) return command;
       }
       throw new Error('FFMPEG not found');
